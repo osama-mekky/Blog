@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="wrapper">
+    <form method="POST">
+        {% csrf_token %}
+        {% include 'parts/alerts.html' %}
+        
+        <h1>MyProfile</h1>
+        {% for field in form  %}
+        <p style="text-align: center;">{{field.label}}</p>
+        <div class="input-box">
+            
+            {{field}} 
+        </div>
+        {% endfor %}
+        
+
+    <br>
+
+        <button class="btn" type="submit">Save</button>
+    </form>
+</div>
+
+
+{% endblock %}

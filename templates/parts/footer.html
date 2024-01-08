@@ -1,0 +1,29 @@
+<footer>
+<div class="footerContainer">
+    <div class="social-icons">
+        <a href="#"><i class='bx bxl-linkedin' ></i></a>
+        <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+        <a href="#"><i class='bx bxl-twitter' ></i></a>
+        <a href="#"><i class='bx bxl-github'></i></a>
+
+    </div>
+
+    <div class="footerNav">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'profile' request.user.id %}">MyProfile</a></li>
+            {% else %}
+            <li><a href="{% url 'login'  %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Regisetr</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    
+</div>
+
+<div class="footerBottom">
+    <p>Copyright @ <span>Osama Mekky</span></p>
+</div>
+
+</footer>

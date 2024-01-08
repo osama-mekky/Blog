@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="main">
+    <div>
+        <h2><span>Blog Techno</span></h2>
+        <h3>Using Django Framework</h3>
+        <a href="#projecrs" class="main-btn">View The Articles</a>
+        <a href="{% url 'add_post' %}" data-toggle = 'collapse' class="main-btn_add">Add Post</a>
+
+
+     
+
+        
+
+        </div>
+    </div>
+
+</section>
+
+<section class="projects" id="projecrs">
+  <h2 class="title">All</h2>
+  {% include 'parts/alerts.html' %}
+  <div class="content">
+    
+      {% for post in posts %}
+      
+      
+      <div class="project-card">
+          <div class="project-image">
+            {% if post.photo %}
+                <img src="{{post.photo.url}}">
+            {% else %}
+                 <img src="" alt="">
+            {% endif %}
+          </div>
+          <div class="project-info">
+              <p class="project-category">{{post.category}}</p>
+              <strong class="project-title">
+                  <span>{{post.tilte}}</span>
+                  <a  class="more-details" href="{% url 'post' post.id %}">Read More</a>
+              </strong>
+              <p>By:{{post.user}}</p> <p>{{post.update|timesince}}</p>
+              {% if post.user == request.user %}
+              <a class="btn btn-danger" href="{% url 'delate_post' post.id %}">Delate</a>
+              <a class="btn btn-secondary" href="{% url 'update' post.id %}">Edit</a>
+              {% endif %}
+          </div>
+
+      </div>
+
+      {% endfor %}
+  </div>
+
+</section>
+
+
+{% endblock %}

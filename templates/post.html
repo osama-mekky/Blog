@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="post">
+    {% include 'parts/alerts.html' %}
+    <div>
+        <h1>{{post.tilte}}</h1>
+        <img  src="{{post.photo.url}}" alt="">
+        <br>
+        <p>{{post.text|safe}}</p>
+        </div>
+
+    <div class="comments">
+        <h2 style="color: yellow;">Comments</h2>
+        {% for comment in post_comments %}
+            <div style="position: relative;">
+                <h4 style="position: absolute;">By {{comment.user}}</h4>
+                <p style="position: absolute; right: 0;" >{{comment.update|timesince}}</p>
+                <br>
+                <br>
+                <h5>{{comment}}</h5> 
+                {% if comment.user == request.user %}
+                <a class="btn btn-danger" style="position: absolute; right: 0;" href="{% url 'delate_comment' comment.id %}">Delate</a>
+                {% endif %}
+                <br>
+                <hr>
+            </div>
+        {% endfor %}
+        <form method="POST" class="comment-form">
+            {% csrf_token %}
+            <textarea name="body" id="" maxlength="50"  rows="1" placeholder="Write your cooment 50 letters "></textarea>
+            {% if request.user.is_authenticated %}
+            <button type="submit">Comment</button>
+            {% else %}
+            <p>You should be Login Befor</p> <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+            {% endif %}
+
+            
+        </form>
+    </div>  
+    
+    
+
+
+    
+</section>
+
+
+
+{% endblock %}
